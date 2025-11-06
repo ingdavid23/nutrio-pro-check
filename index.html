@@ -218,7 +218,7 @@
      <h1 id="app-title" class="text-2xl font-bold text-gray-800">Gestión Nutricional</h1>
      <p id="clinic-name" class="text-sm text-gray-500 mt-1">Mi Clínica Nutricional</p>
     </div>
-    <nav class="p-4"><button onclick="showSection('pacientes')" class="nav-item active w-full text-left px-4 py-3 rounded-lg mb-2 font-medium" id="nav-pacientes"> 📋 Pacientes </button> <button onclick="showSection('calendario')" class="nav-item w-full text-left px-4 py-3 rounded-lg mb-2 font-medium text-gray-700" id="nav-calendario"> 📅 Calendario </button> <button onclick="showSection('planes')" class="nav-item w-full text-left px-4 py-3 rounded-lg mb-2 font-medium text-gray-700" id="nav-planes"> 🍎 Planes Nutricionales </button> <button onclick="showSection('estadisticas')" class="nav-item w-full text-left px-4 py-3 rounded-lg mb-2 font-medium text-gray-700" id="nav-estadisticas"> 📊 Estadísticas </button> <button onclick="showSection('reportes')" class="nav-item w-full text-left px-4 py-3 rounded-lg mb-2 font-medium text-gray-700" id="nav-reportes"> 📄 Reportes </button>
+    <nav class="p-4"><button onclick="showSection('pacientes')" class="nav-item active w-full text-left px-4 py-3 rounded-lg mb-2 font-medium" id="nav-pacientes"> 📋 Pacientes </button> <button onclick="showSection('calendario')" class="nav-item w-full text-left px-4 py-3 rounded-lg mb-2 font-medium text-gray-700" id="nav-calendario"> 📅 Calendario </button> <button onclick="showSection('planes')" class="nav-item w-full text-left px-4 py-3 rounded-lg mb-2 font-medium text-gray-700" id="nav-planes"> 🍎 Planes Nutricionales </button> <button onclick="showSection('estadisticas')" class="nav-item w-full text-left px-4 py-3 rounded-lg mb-2 font-medium text-gray-700" id="nav-estadisticas"> 📊 Estadísticas </button> <button onclick="showSection('reportes')" class="nav-item w-full text-left px-4 py-3 rounded-lg mb-2 font-medium text-gray-700" id="nav-reportes"> 📄 Reportes </button> <button onclick="showSection('asistente')" class="nav-item w-full text-left px-4 py-3 rounded-lg mb-2 font-medium text-gray-700" id="nav-asistente"> 🤖 Asistente IA </button>
     </nav>
    </div><!-- Main Content -->
    <div class="flex-1 overflow-y-auto"><!-- Pacientes Section -->
@@ -541,6 +541,82 @@
        </div>
       </div>
      </div>
+    </div><!-- Asistente IA Section -->
+    <div id="section-asistente" class="p-8 hidden">
+     <div class="flex justify-between items-center mb-6">
+      <div>
+       <h2 class="text-3xl font-bold text-gray-800">Asistente IA Nutricional</h2>
+       <p class="text-gray-600 mt-2">Tu asistente inteligente para consultas nutricionales y análisis de pacientes</p>
+      </div>
+      <div class="flex items-center gap-2 text-sm text-gray-500">
+       <div class="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div><span>IA Activa</span>
+      </div>
+     </div>
+     <div class="grid grid-cols-1 lg:grid-cols-4 gap-6"><!-- Panel de Acciones Rápidas -->
+      <div class="lg:col-span-1">
+       <div class="bg-white rounded-xl shadow-lg p-6 sticky top-6">
+        <h3 class="text-lg font-bold text-gray-800 mb-4 flex items-center gap-2">⚡ Acciones Rápidas</h3>
+        <div class="space-y-3"><button onclick="quickAnalyzePatient()" class="w-full bg-gradient-to-r from-blue-500 to-purple-600 text-white px-4 py-3 rounded-lg font-medium hover:from-blue-600 hover:to-purple-700 transition-all flex items-center gap-2"> <span>👤</span> <span>Analizar Paciente</span> </button> <button onclick="quickMealPlan()" class="w-full bg-gradient-to-r from-green-500 to-teal-600 text-white px-4 py-3 rounded-lg font-medium hover:from-green-600 hover:to-teal-700 transition-all flex items-center gap-2"> <span>🍽️</span> <span>Plan de Comidas</span> </button> <button onclick="quickNutritionTips()" class="w-full bg-gradient-to-r from-orange-500 to-red-600 text-white px-4 py-3 rounded-lg font-medium hover:from-orange-600 hover:to-red-700 transition-all flex items-center gap-2"> <span>💡</span> <span>Tips Nutricionales</span> </button> <button onclick="quickFoodAnalysis()" class="w-full bg-gradient-to-r from-purple-500 to-pink-600 text-white px-4 py-3 rounded-lg font-medium hover:from-purple-600 hover:to-pink-700 transition-all flex items-center gap-2"> <span>🔍</span> <span>Análisis de Alimentos</span> </button> <button onclick="clearChat()" class="w-full bg-gray-500 hover:bg-gray-600 text-white px-4 py-3 rounded-lg font-medium transition-all flex items-center gap-2"> <span>🗑️</span> <span>Limpiar Chat</span> </button>
+        </div><!-- Selector de Paciente para Análisis -->
+        <div class="mt-6 pt-6 border-t border-gray-200">
+         <h4 class="font-semibold text-gray-700 mb-3">Paciente para Análisis</h4><select id="ai-patient-select" class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm"> <option value="">Seleccionar paciente</option> </select>
+        </div><!-- Estadísticas del Chat -->
+        <div class="mt-6 pt-6 border-t border-gray-200">
+         <h4 class="font-semibold text-gray-700 mb-3">Estadísticas</h4>
+         <div class="space-y-2 text-sm">
+          <div class="flex justify-between"><span class="text-gray-600">Consultas:</span> <span id="chat-count" class="font-medium">0</span>
+          </div>
+          <div class="flex justify-between"><span class="text-gray-600">Análisis:</span> <span id="analysis-count" class="font-medium">0</span>
+          </div>
+         </div>
+        </div>
+       </div>
+      </div><!-- Chat Interface -->
+      <div class="lg:col-span-3">
+       <div class="bg-white rounded-xl shadow-lg overflow-hidden h-[700px] flex flex-col"><!-- Chat Header -->
+        <div class="bg-gradient-to-r from-blue-600 to-purple-600 text-white p-6">
+         <div class="flex items-center justify-between">
+          <div class="flex items-center gap-3">
+           <div class="w-12 h-12 bg-white bg-opacity-20 rounded-full flex items-center justify-center"><span class="text-2xl">🤖</span>
+           </div>
+           <div>
+            <h3 class="text-xl font-bold">NutriBot</h3>
+            <p class="text-blue-100 text-sm">Asistente Nutricional Inteligente</p>
+           </div>
+          </div>
+          <div class="flex items-center gap-2 text-sm">
+           <div class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div><span class="text-blue-100">En línea</span>
+          </div>
+         </div>
+        </div><!-- Chat Messages -->
+        <div id="chat-messages" class="flex-1 overflow-y-auto p-6 space-y-4 bg-gray-50"><!-- Mensaje de bienvenida -->
+         <div class="flex items-start gap-3">
+          <div class="w-8 h-8 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center flex-shrink-0"><span class="text-white text-sm">🤖</span>
+          </div>
+          <div class="bg-white rounded-lg shadow-sm p-4 max-w-md">
+           <p class="text-gray-800">¡Hola! Soy tu asistente nutricional inteligente. Puedo ayudarte con:</p>
+           <ul class="mt-2 text-sm text-gray-600 space-y-1">
+            <li>• Análisis de pacientes y métricas</li>
+            <li>• Recomendaciones nutricionales</li>
+            <li>• Planes de alimentación personalizados</li>
+            <li>• Información sobre alimentos y nutrientes</li>
+            <li>• Interpretación de datos corporales</li>
+           </ul>
+           <p class="mt-2 text-sm text-gray-600">¿En qué puedo ayudarte hoy?</p>
+          </div>
+         </div>
+        </div><!-- Chat Input -->
+        <div class="border-t border-gray-200 p-4 bg-white">
+         <form id="chat-form" class="flex gap-3"><input type="text" id="chat-input" placeholder="Escribe tu consulta nutricional aquí..." class="flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none" autocomplete="off"> <button type="submit" id="send-btn" class="bg-gradient-to-r from-blue-500 to-purple-600 text-white px-6 py-3 rounded-lg font-medium hover:from-blue-600 hover:to-purple-700 transition-all flex items-center gap-2 disabled:opacity-50"> <span id="send-icon">📤</span> <span id="send-text">Enviar</span> </button>
+         </form><!-- Sugerencias de preguntas -->
+         <div class="mt-3">
+          <div class="flex flex-wrap gap-2"><button onclick="sendSuggestion('¿Cómo interpreto un IMC de 28.5?')" class="text-xs bg-blue-100 text-blue-700 px-3 py-1 rounded-full hover:bg-blue-200 transition-colors"> ¿Cómo interpreto un IMC de 28.5? </button> <button onclick="sendSuggestion('Recomienda alimentos ricos en proteína')" class="text-xs bg-green-100 text-green-700 px-3 py-1 rounded-full hover:bg-green-200 transition-colors"> Alimentos ricos en proteína </button> <button onclick="sendSuggestion('¿Qué significa tener grasa visceral nivel 12?')" class="text-xs bg-orange-100 text-orange-700 px-3 py-1 rounded-full hover:bg-orange-200 transition-colors"> Grasa visceral nivel 12 </button>
+          </div>
+         </div>
+        </div>
+       </div>
+      </div>
+     </div>
     </div><!-- Estadísticas Section -->
     <div id="section-estadisticas" class="p-8 hidden">
      <h2 class="text-3xl font-bold text-gray-800 mb-6">Estadísticas</h2>
@@ -741,6 +817,9 @@
                     break;
                 case 'reportes':
                     renderReports();
+                    break;
+                case 'asistente':
+                    renderAssistant();
                     break;
                 case 'estadisticas':
                     renderStatistics();
@@ -2005,6 +2084,11 @@
         let currentReportData = '';
         let selectedPatientForReport = null;
 
+        // Variables para asistente IA
+        let chatCount = 0;
+        let analysisCount = 0;
+        let chatHistory = [];
+
         // Funciones para reportes
         function renderReports() {
             const patients = getPatients();
@@ -2383,6 +2467,410 @@
             }
         }
 
+        // Funciones del Asistente IA
+        function renderAssistant() {
+            const patients = getPatients();
+            const select = document.getElementById('ai-patient-select');
+            
+            select.innerHTML = '<option value="">Seleccionar paciente</option>' + 
+                patients.map(p => `<option value="${p.id}">${p.nombre}</option>`).join('');
+            
+            updateChatStats();
+        }
+
+        function updateChatStats() {
+            document.getElementById('chat-count').textContent = chatCount;
+            document.getElementById('analysis-count').textContent = analysisCount;
+        }
+
+        function addMessage(content, isUser = false, isTyping = false) {
+            const messagesContainer = document.getElementById('chat-messages');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = 'flex items-start gap-3';
+            
+            if (isUser) {
+                messageDiv.className += ' flex-row-reverse';
+                messageDiv.innerHTML = `
+                    <div class="w-8 h-8 bg-gradient-to-br from-green-500 to-blue-600 rounded-full flex items-center justify-center flex-shrink-0">
+                        <span class="text-white text-sm">👤</span>
+                    </div>
+                    <div class="bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-lg shadow-sm p-4 max-w-md">
+                        <p>${content}</p>
+                    </div>
+                `;
+            } else {
+                if (isTyping) {
+                    messageDiv.innerHTML = `
+                        <div class="w-8 h-8 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center flex-shrink-0">
+                            <span class="text-white text-sm">🤖</span>
+                        </div>
+                        <div class="bg-white rounded-lg shadow-sm p-4 max-w-md">
+                            <div class="flex items-center gap-2">
+                                <div class="flex space-x-1">
+                                    <div class="w-2 h-2 bg-blue-500 rounded-full animate-bounce"></div>
+                                    <div class="w-2 h-2 bg-blue-500 rounded-full animate-bounce" style="animation-delay: 0.1s"></div>
+                                    <div class="w-2 h-2 bg-blue-500 rounded-full animate-bounce" style="animation-delay: 0.2s"></div>
+                                </div>
+                                <span class="text-gray-500 text-sm">NutriBot está escribiendo...</span>
+                            </div>
+                        </div>
+                    `;
+                } else {
+                    messageDiv.innerHTML = `
+                        <div class="w-8 h-8 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center flex-shrink-0">
+                            <span class="text-white text-sm">🤖</span>
+                        </div>
+                        <div class="bg-white rounded-lg shadow-sm p-4 max-w-md">
+                            <div class="text-gray-800">${content}</div>
+                        </div>
+                    `;
+                }
+            }
+            
+            messagesContainer.appendChild(messageDiv);
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+            
+            return messageDiv;
+        }
+
+        function generateAIResponse(userMessage, patientData = null) {
+            const lowerMessage = userMessage.toLowerCase();
+            
+            // Respuestas sobre IMC
+            if (lowerMessage.includes('imc') || lowerMessage.includes('índice de masa corporal')) {
+                if (lowerMessage.includes('28.5') || lowerMessage.includes('28,5')) {
+                    return `
+                        <p><strong>📊 Análisis de IMC 28.5:</strong></p>
+                        <p>Un IMC de 28.5 indica <strong>sobrepeso</strong> (rango: 25.0-29.9).</p>
+                        <p><strong>🎯 Recomendaciones:</strong></p>
+                        <ul class="mt-2 space-y-1 text-sm">
+                            <li>• Déficit calórico moderado (300-500 kcal/día)</li>
+                            <li>• Aumentar actividad física cardiovascular</li>
+                            <li>• Enfocarse en alimentos ricos en fibra</li>
+                            <li>• Controlar porciones y horarios de comida</li>
+                            <li>• Meta: reducir 0.5-1 kg por semana</li>
+                        </ul>
+                        <p class="mt-2 text-sm text-gray-600">💡 <em>Está cerca del rango normal (18.5-24.9). Con pequeños cambios puede lograr grandes resultados.</em></p>
+                    `;
+                }
+                
+                if (patientData && patientData.imc) {
+                    const category = getIMCCategory(patientData.imc);
+                    return `
+                        <p><strong>📊 Análisis de IMC para ${patientData.nombre}:</strong></p>
+                        <p>IMC actual: <strong>${patientData.imc}</strong> - ${category.text}</p>
+                        <p><strong>🎯 Recomendaciones específicas:</strong></p>
+                        ${getIMCRecommendations(patientData.imc, patientData.edad, patientData.genero)}
+                    `;
+                }
+                
+                return `
+                    <p><strong>📊 Sobre el Índice de Masa Corporal (IMC):</strong></p>
+                    <p>El IMC es una medida que relaciona peso y altura:</p>
+                    <ul class="mt-2 space-y-1 text-sm">
+                        <li>• <strong>Bajo peso:</strong> Menos de 18.5</li>
+                        <li>• <strong>Normal:</strong> 18.5 - 24.9</li>
+                        <li>• <strong>Sobrepeso:</strong> 25.0 - 29.9</li>
+                        <li>• <strong>Obesidad:</strong> 30.0 o más</li>
+                    </ul>
+                    <p class="mt-2 text-sm text-gray-600">💡 <em>¿Tienes un IMC específico que quieres que analice?</em></p>
+                `;
+            }
+            
+            // Respuestas sobre grasa visceral
+            if (lowerMessage.includes('grasa visceral') || lowerMessage.includes('visceral')) {
+                if (lowerMessage.includes('12') || lowerMessage.includes('nivel 12')) {
+                    return `
+                        <p><strong>⚠️ Análisis de Grasa Visceral Nivel 12:</strong></p>
+                        <p>Un nivel 12 de grasa visceral está en el <strong>rango alto</strong> (normal: 1-9).</p>
+                        <p><strong>🚨 Riesgos asociados:</strong></p>
+                        <ul class="mt-2 space-y-1 text-sm">
+                            <li>• Mayor riesgo cardiovascular</li>
+                            <li>• Resistencia a la insulina</li>
+                            <li>• Inflamación sistémica</li>
+                            <li>• Síndrome metabólico</li>
+                        </ul>
+                        <p><strong>🎯 Plan de acción urgente:</strong></p>
+                        <ul class="mt-2 space-y-1 text-sm">
+                            <li>• Ejercicio cardiovascular intenso (5x/semana)</li>
+                            <li>• Dieta antiinflamatoria</li>
+                            <li>• Reducir azúcares y carbohidratos refinados</li>
+                            <li>• Aumentar omega-3 y fibra</li>
+                            <li>• Considerar evaluación médica</li>
+                        </ul>
+                    `;
+                }
+                
+                return `
+                    <p><strong>🔍 Sobre la Grasa Visceral:</strong></p>
+                    <p>Es la grasa que rodea los órganos internos. Niveles de referencia:</p>
+                    <ul class="mt-2 space-y-1 text-sm">
+                        <li>• <strong>Saludable:</strong> 1-9</li>
+                        <li>• <strong>Moderado:</strong> 10-14</li>
+                        <li>• <strong>Alto riesgo:</strong> 15-20</li>
+                    </ul>
+                    <p class="mt-2 text-sm text-gray-600">💡 <em>Es más peligrosa que la grasa subcutánea porque afecta directamente los órganos.</em></p>
+                `;
+            }
+            
+            // Respuestas sobre proteínas
+            if (lowerMessage.includes('proteína') || lowerMessage.includes('proteinas') || lowerMessage.includes('alimentos ricos en proteína')) {
+                return `
+                    <p><strong>🥩 Alimentos Ricos en Proteína:</strong></p>
+                    <p><strong>🐟 Proteínas Completas (origen animal):</strong></p>
+                    <ul class="mt-2 space-y-1 text-sm">
+                        <li>• <strong>Pollo:</strong> 25g por 100g</li>
+                        <li>• <strong>Pescado:</strong> 20-25g por 100g</li>
+                        <li>• <strong>Huevos:</strong> 13g por 100g</li>
+                        <li>• <strong>Carne magra:</strong> 20-26g por 100g</li>
+                        <li>• <strong>Yogurt griego:</strong> 10g por 100g</li>
+                    </ul>
+                    <p><strong>🌱 Proteínas Vegetales:</strong></p>
+                    <ul class="mt-2 space-y-1 text-sm">
+                        <li>• <strong>Lentejas:</strong> 9g por 100g</li>
+                        <li>• <strong>Quinoa:</strong> 14g por 100g</li>
+                        <li>• <strong>Tofu:</strong> 8g por 100g</li>
+                        <li>• <strong>Almendras:</strong> 21g por 100g</li>
+                        <li>• <strong>Garbanzos:</strong> 8g por 100g</li>
+                    </ul>
+                    <p class="mt-2 text-sm text-gray-600">💡 <em>Recomendación: 0.8-1.2g por kg de peso corporal diario.</em></p>
+                `;
+            }
+            
+            // Respuestas sobre planes de comida
+            if (lowerMessage.includes('plan de comida') || lowerMessage.includes('menú') || lowerMessage.includes('dieta')) {
+                return `
+                    <p><strong>🍽️ Estructura de Plan de Comidas Saludable:</strong></p>
+                    <p><strong>🌅 Desayuno (25% del día):</strong></p>
+                    <ul class="mt-2 space-y-1 text-sm">
+                        <li>• Proteína + Carbohidrato complejo + Grasa saludable</li>
+                        <li>• Ejemplo: Avena + huevo + aguacate + fruta</li>
+                    </ul>
+                    <p><strong>🍽️ Almuerzo (35% del día):</strong></p>
+                    <ul class="mt-2 space-y-1 text-sm">
+                        <li>• Proteína magra + Vegetales + Carbohidrato + Grasa</li>
+                        <li>• Ejemplo: Pollo + ensalada + arroz integral + aceite oliva</li>
+                    </ul>
+                    <p><strong>🌙 Cena (25% del día):</strong></p>
+                    <ul class="mt-2 space-y-1 text-sm">
+                        <li>• Proteína + Vegetales + Carbohidrato ligero</li>
+                        <li>• Ejemplo: Pescado + verduras + batata</li>
+                    </ul>
+                    <p><strong>🥤 Colaciones (15% del día):</strong></p>
+                    <ul class="mt-2 space-y-1 text-sm">
+                        <li>• Fruta + frutos secos</li>
+                        <li>• Yogurt + semillas</li>
+                    </ul>
+                `;
+            }
+            
+            // Respuestas sobre análisis de alimentos
+            if (lowerMessage.includes('análisis de alimento') || lowerMessage.includes('información nutricional')) {
+                return `
+                    <p><strong>🔍 ¿Qué alimento quieres que analice?</strong></p>
+                    <p>Puedo proporcionarte información detallada sobre:</p>
+                    <ul class="mt-2 space-y-1 text-sm">
+                        <li>• <strong>Macronutrientes:</strong> Proteínas, carbohidratos, grasas</li>
+                        <li>• <strong>Micronutrientes:</strong> Vitaminas y minerales</li>
+                        <li>• <strong>Calorías:</strong> Por porción y por 100g</li>
+                        <li>• <strong>Beneficios:</strong> Para la salud</li>
+                        <li>• <strong>Recomendaciones:</strong> De consumo</li>
+                    </ul>
+                    <p class="mt-2 text-sm text-gray-600">💡 <em>Ejemplo: "Analiza las propiedades nutricionales del aguacate"</em></p>
+                `;
+            }
+            
+            // Respuestas sobre tips nutricionales
+            if (lowerMessage.includes('tip') || lowerMessage.includes('consejo') || lowerMessage.includes('recomendación')) {
+                const tips = [
+                    {
+                        title: "💧 Hidratación Inteligente",
+                        content: "Bebe un vaso de agua antes de cada comida. Te ayudará a sentirte más saciado y mejorar la digestión."
+                    },
+                    {
+                        title: "🍽️ Regla del Plato",
+                        content: "Divide tu plato: 1/2 vegetales, 1/4 proteína magra, 1/4 carbohidratos complejos."
+                    },
+                    {
+                        title: "⏰ Timing de Nutrientes",
+                        content: "Consume proteínas en cada comida para mantener la saciedad y preservar masa muscular."
+                    },
+                    {
+                        title: "🌈 Come Colores",
+                        content: "Incluye frutas y verduras de diferentes colores para obtener variedad de antioxidantes."
+                    },
+                    {
+                        title: "🥜 Grasas Saludables",
+                        content: "Incluye aguacate, frutos secos y aceite de oliva para mejorar la absorción de vitaminas."
+                    }
+                ];
+                
+                const randomTip = tips[Math.floor(Math.random() * tips.length)];
+                return `
+                    <p><strong>${randomTip.title}</strong></p>
+                    <p>${randomTip.content}</p>
+                    <p class="mt-3 text-sm text-gray-600">💡 <em>¿Quieres más tips específicos sobre algún tema nutricional?</em></p>
+                `;
+            }
+            
+            // Respuesta por defecto
+            return `
+                <p>Entiendo tu consulta sobre nutrición. Como asistente especializado, puedo ayudarte con:</p>
+                <ul class="mt-2 space-y-1 text-sm">
+                    <li>• <strong>Análisis de métricas corporales</strong> (IMC, grasa corporal, etc.)</li>
+                    <li>• <strong>Recomendaciones nutricionales</strong> personalizadas</li>
+                    <li>• <strong>Información sobre alimentos</strong> y sus propiedades</li>
+                    <li>• <strong>Planes de alimentación</strong> estructurados</li>
+                    <li>• <strong>Tips y consejos</strong> nutricionales</li>
+                </ul>
+                <p class="mt-2 text-sm text-gray-600">💡 <em>¿Podrías ser más específico sobre qué aspecto nutricional te interesa?</em></p>
+            `;
+        }
+
+        function getIMCRecommendations(imc, edad, genero) {
+            const category = getIMCCategory(imc);
+            
+            if (category.text === 'Bajo peso') {
+                return `
+                    <ul class="mt-2 space-y-1 text-sm">
+                        <li>• Aumentar ingesta calórica (+300-500 kcal/día)</li>
+                        <li>• Incluir más proteínas de calidad</li>
+                        <li>• Ejercicios de fuerza para ganar masa muscular</li>
+                        <li>• Comidas más frecuentes (5-6 al día)</li>
+                        <li>• Consultar con médico si persiste</li>
+                    </ul>
+                `;
+            } else if (category.text === 'Normal') {
+                return `
+                    <ul class="mt-2 space-y-1 text-sm">
+                        <li>• Mantener peso actual con dieta equilibrada</li>
+                        <li>• Actividad física regular (150 min/semana)</li>
+                        <li>• Monitorear composición corporal</li>
+                        <li>• Enfocarse en hábitos saludables</li>
+                        <li>• Revisiones periódicas</li>
+                    </ul>
+                `;
+            } else if (category.text === 'Sobrepeso') {
+                return `
+                    <ul class="mt-2 space-y-1 text-sm">
+                        <li>• Déficit calórico moderado (300-500 kcal/día)</li>
+                        <li>• Aumentar actividad cardiovascular</li>
+                        <li>• Priorizar alimentos ricos en fibra</li>
+                        <li>• Control de porciones</li>
+                        <li>• Meta: 0.5-1 kg por semana</li>
+                    </ul>
+                `;
+            } else {
+                return `
+                    <ul class="mt-2 space-y-1 text-sm">
+                        <li>• Déficit calórico controlado (500-750 kcal/día)</li>
+                        <li>• Ejercicio de bajo impacto inicialmente</li>
+                        <li>• Apoyo profesional multidisciplinario</li>
+                        <li>• Cambios graduales y sostenibles</li>
+                        <li>• Evaluación médica completa</li>
+                    </ul>
+                `;
+            }
+        }
+
+        function sendMessage(message) {
+            if (!message.trim()) return;
+            
+            // Agregar mensaje del usuario
+            addMessage(message, true);
+            chatHistory.push({ role: 'user', content: message });
+            
+            // Mostrar indicador de escritura
+            const typingMessage = addMessage('', false, true);
+            
+            // Obtener datos del paciente seleccionado si existe
+            const selectedPatientId = document.getElementById('ai-patient-select').value;
+            const selectedPatient = selectedPatientId ? allData.find(p => p.id === selectedPatientId) : null;
+            
+            // Simular delay de respuesta
+            setTimeout(() => {
+                // Remover indicador de escritura
+                typingMessage.remove();
+                
+                // Generar y mostrar respuesta
+                const response = generateAIResponse(message, selectedPatient);
+                addMessage(response, false);
+                chatHistory.push({ role: 'assistant', content: response });
+                
+                // Actualizar estadísticas
+                chatCount++;
+                if (selectedPatient || message.toLowerCase().includes('analizar') || message.toLowerCase().includes('análisis')) {
+                    analysisCount++;
+                }
+                updateChatStats();
+                
+            }, 1000 + Math.random() * 2000); // 1-3 segundos de delay
+        }
+
+        function sendSuggestion(suggestion) {
+            document.getElementById('chat-input').value = suggestion;
+            sendMessage(suggestion);
+        }
+
+        function clearChat() {
+            const messagesContainer = document.getElementById('chat-messages');
+            messagesContainer.innerHTML = `
+                <div class="flex items-start gap-3">
+                    <div class="w-8 h-8 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center flex-shrink-0">
+                        <span class="text-white text-sm">🤖</span>
+                    </div>
+                    <div class="bg-white rounded-lg shadow-sm p-4 max-w-md">
+                        <p class="text-gray-800">Chat reiniciado. ¿En qué puedo ayudarte?</p>
+                    </div>
+                </div>
+            `;
+            chatHistory = [];
+            showToast('Chat limpiado correctamente', 'success');
+        }
+
+        function quickAnalyzePatient() {
+            const selectedPatientId = document.getElementById('ai-patient-select').value;
+            if (!selectedPatientId) {
+                showToast('Selecciona un paciente primero', 'error');
+                return;
+            }
+            
+            const patient = allData.find(p => p.id === selectedPatientId);
+            const message = `Analiza completamente al paciente ${patient.nombre} con sus métricas actuales`;
+            sendMessage(message);
+        }
+
+        function quickMealPlan() {
+            const selectedPatientId = document.getElementById('ai-patient-select').value;
+            if (selectedPatientId) {
+                const patient = allData.find(p => p.id === selectedPatientId);
+                const message = `Crea un plan de comidas personalizado para ${patient.nombre} considerando su IMC de ${patient.imc}`;
+                sendMessage(message);
+            } else {
+                sendMessage('Crea un plan de comidas saludable y equilibrado');
+            }
+        }
+
+        function quickNutritionTips() {
+            sendMessage('Dame consejos nutricionales prácticos para mejorar la salud');
+        }
+
+        function quickFoodAnalysis() {
+            sendMessage('¿Qué alimento quieres que analice nutricionalmente?');
+        }
+
+        // Event listeners para el chat
+        document.getElementById('chat-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const input = document.getElementById('chat-input');
+            const message = input.value.trim();
+            
+            if (message) {
+                sendMessage(message);
+                input.value = '';
+            }
+        });
+
         init();
         
         // Configurar cálculo en tiempo real cuando se abra el formulario
@@ -2390,5 +2878,5 @@
             setupRealtimeCalculation();
         });
     </script>
- <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'999d628b867cae76',t:'MTc2MjM1NjU0OC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'99a28a4c749b598b',t:'MTc2MjQxMDYwNS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
